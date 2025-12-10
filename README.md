@@ -118,7 +118,7 @@ The `deployment_params.json` file contains the deployment configuration for this
   "github_url": "https://github.com/Traia-IO/test-nikola-2-mcp-server",
   "mcp_server": {
     "name": "test-nikola-2-mcp",
-    "description": "Test description",
+    "description": "This is test purpose mcp server",
     "server_type": "streamable-http",
 "capabilities": [
       // List all implemented tool names here

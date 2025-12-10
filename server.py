@@ -41,6 +41,7 @@ logger = logging.getLogger('test-nikola-2_mcp')
 from mcp.server.fastmcp import FastMCP, Context
 from starlette.requests import Request
 from starlette.responses import JSONResponse
+from starlette.middleware.cors import CORSMiddleware
 
 # D402 payment protocol - using Starlette middleware
 from traia_iatp.d402.starlette_middleware import D402PaymentMiddleware
@@ -127,6 +128,16 @@ def create_app_with_middleware():
     else:
         logger.warning("⚠️  D402 Testing Mode - Facilitator bypassed")
     logger.info("="*60)
+    
+    # Add CORS middleware first (processes before other middleware)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # Allow all origins
+        allow_credentials=True,
+        allow_methods=["*"],  # Allow all methods
+        allow_headers=["*"],  # Allow all headers
+    )
+    logger.info("✅ Added CORS middleware (allow all origins)")
     
     # Add D402 payment middleware with extracted configs
     app.add_middleware(
